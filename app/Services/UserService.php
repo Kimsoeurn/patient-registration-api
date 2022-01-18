@@ -1,7 +1,7 @@
 <?php
 namespace App\Services;
 
-use App\Contracts\Repostitories\IUserRepository;
+use App\Contracts\Repositories\IUserRepository;
 use App\Contracts\Services\IUserService;
 use Illuminate\Http\Request;
 
@@ -14,7 +14,7 @@ class UserService implements IUserService
 
     public function all()
     {
-        // TODO: Implement all() method.
+        return $this->userRepository->all();
     }
 
     public function paginate()
@@ -34,7 +34,7 @@ class UserService implements IUserService
 
     public function insert(Request $request)
     {
-        // TODO: Implement insert() method.
+        return $this->userRepository->create($request->all());
     }
 
     public function update(Request $request, int $id)

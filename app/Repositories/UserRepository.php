@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repostitories;
+namespace App\Repositories;
 
-use App\Contracts\Repostitories\IUserRepository;
+use App\Contracts\Repositories\IUserRepository;
 use App\Models\User;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
@@ -13,7 +13,7 @@ class UserRepository extends BaseRepository implements IUserRepository
         'name',
     ];
 
-    public function model(): string
+    public function model()
     {
         return User::class;
     }
