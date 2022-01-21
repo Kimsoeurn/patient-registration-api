@@ -27,3 +27,9 @@ Route::get('provinces/{id}', [\App\Http\Controllers\Api\ProvinceController::clas
 
 Route::get('districts', [\App\Http\Controllers\Api\DistrictsController::class, 'index']);
 Route::get('districts/{id}', [\App\Http\Controllers\Api\DistrictsController::class, 'show']);
+
+Route::get('communes', [\App\Http\Controllers\Api\CommunesController::class, 'index']);
+Route::get('communes/{id}', [\App\Http\Controllers\Api\CommunesController::class, 'show']);
+
+Route::get('villages', [\App\Http\Controllers\Api\VillagesController::class, 'index']);
+Route::get('villages/{id}', [\App\Http\Controllers\Api\VillagesController::class, 'show']);

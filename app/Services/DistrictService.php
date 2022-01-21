@@ -18,6 +18,8 @@ class DistrictService implements IDistrictService
 
     public function find(int $id)
     {
-        return $this->districtRepository->find($id);
+        return $this->districtRepository
+                    ->with('communes')
+                    ->find($id);
     }
 }
