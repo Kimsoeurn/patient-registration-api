@@ -21,3 +21,6 @@ Route::post('login', [AuthController::class, 'login']);
 Route::middleware(['auth:api'])->group(function () {
     Route::resource('patients', PatientController::class);
 });
+
+Route::get('provinces', [\App\Http\Controllers\Api\ProvinceController::class, 'index']);
+Route::get('provinces/{id}', [\App\Http\Controllers\Api\ProvinceController::class, 'show']);
