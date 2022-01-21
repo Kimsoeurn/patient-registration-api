@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CommunesController;
+use App\Http\Controllers\Api\DistrictsController;
 use App\Http\Controllers\Api\PatientController;
+use App\Http\Controllers\Api\ProvinceController;
+use App\Http\Controllers\Api\VillagesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,14 +26,14 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('patients', PatientController::class);
 });
 
-Route::get('provinces', [\App\Http\Controllers\Api\ProvinceController::class, 'index']);
-Route::get('provinces/{id}', [\App\Http\Controllers\Api\ProvinceController::class, 'show']);
+Route::get('provinces', [ProvinceController::class, 'index']);
+Route::get('provinces/{id}', [ProvinceController::class, 'show']);
 
-Route::get('districts', [\App\Http\Controllers\Api\DistrictsController::class, 'index']);
-Route::get('districts/{id}', [\App\Http\Controllers\Api\DistrictsController::class, 'show']);
+Route::get('districts', [DistrictsController::class, 'index']);
+Route::get('districts/{id}', [DistrictsController::class, 'show']);
 
-Route::get('communes', [\App\Http\Controllers\Api\CommunesController::class, 'index']);
-Route::get('communes/{id}', [\App\Http\Controllers\Api\CommunesController::class, 'show']);
+Route::get('communes', [CommunesController::class, 'index']);
+Route::get('communes/{id}', [CommunesController::class, 'show']);
 
-Route::get('villages', [\App\Http\Controllers\Api\VillagesController::class, 'index']);
-Route::get('villages/{id}', [\App\Http\Controllers\Api\VillagesController::class, 'show']);
+Route::get('villages', [VillagesController::class, 'index']);
+Route::get('villages/{id}', [VillagesController::class, 'show']);
