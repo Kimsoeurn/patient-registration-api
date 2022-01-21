@@ -24,3 +24,6 @@ Route::middleware(['auth:api'])->group(function () {
 
 Route::get('provinces', [\App\Http\Controllers\Api\ProvinceController::class, 'index']);
 Route::get('provinces/{id}', [\App\Http\Controllers\Api\ProvinceController::class, 'show']);
+
+Route::get('districts', [\App\Http\Controllers\Api\DistrictsController::class, 'index']);
+Route::get('districts/{id}', [\App\Http\Controllers\Api\DistrictsController::class, 'show']);

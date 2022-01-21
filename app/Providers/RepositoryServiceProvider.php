@@ -2,15 +2,19 @@
 
 namespace App\Providers;
 
+use App\Contracts\Repositories\IDistrictRepository;
 use App\Contracts\Repositories\IPatientRepository;
 use App\Contracts\Repositories\IProvinceRepository;
 use App\Contracts\Repositories\IUserRepository;
+use App\Contracts\Services\IDistrictService;
 use App\Contracts\Services\IPatientService;
 use App\Contracts\Services\IProvinceService;
 use App\Contracts\Services\IUserService;
+use App\Repositories\DistrictRepository;
 use App\Repositories\PatientRepository;
 use App\Repositories\ProvinceRepository;
 use App\Repositories\UserRepository;
+use App\Services\DistrictService;
 use App\Services\PatientService;
 use App\Services\ProvinceService;
 use App\Services\UserService;
@@ -28,6 +32,9 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind(IProvinceService::class, ProvinceService::class);
         $this->app->bind(IProvinceRepository::class, ProvinceRepository::class);
+
+        $this->app->bind(IDistrictService::class, DistrictService::class);
+        $this->app->bind(IDistrictRepository::class, DistrictRepository::class);
     }
 
     public function boot()
