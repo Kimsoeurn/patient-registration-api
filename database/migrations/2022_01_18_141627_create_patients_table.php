@@ -19,7 +19,7 @@ class CreatePatientsTable extends Migration
             $table->string('nationality')->nullable();
             $table->string('occupation')->nullable();
             $table->string('phone_number')->nullable();
-            $table->string('metal_health_id_card')->nullable();
+            $table->string('mental_health_id_card')->nullable();
             $table->string('other_id_card')->nullable();
             $table->boolean('is_disabled')->default(false);
             $table->bigInteger('province_id')->nullable();

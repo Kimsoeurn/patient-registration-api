@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Contracts\Services\IDistrictService;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\DistrictCollection;
+use App\Http\Resources\DistrictResource;
 
 class DistrictsController extends Controller
 {
@@ -15,20 +17,13 @@ class DistrictsController extends Controller
     {
         $data = $this->districtService->all();
 
-        return response()->json($data);
+        return new DistrictCollection($data);
     }
 
     public function show($id)
     {
         $data = $this->districtService->find($id);
 
-        return response()->json($data);
-    }
-
-    public function getByProvince(int $provinceId)
-    {
-        $data = $this->districtService->findByParent($provinceId);
-
-        return response()->json($data);
+        return new DistrictResource($data);
     }
 }
