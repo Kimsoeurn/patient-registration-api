@@ -23,7 +23,7 @@ class PatientFactory extends Factory
             'occupation' => $this->faker->jobTitle,
             'phone_number' => $this->faker->phoneNumber,
             'other_id_card' => $this->faker->creditCardNumber,
-            'metal_health_id_card' => $this->faker->creditCardNumber,
+            'mental_health_id_card' => $this->faker->creditCardNumber,
             'is_disabled' => rand(0,1),
             'province_id' => null,
             'district_id' => null,

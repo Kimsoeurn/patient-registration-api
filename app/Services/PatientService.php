@@ -24,7 +24,9 @@ class PatientService implements IPatientService
 
     public function find(int $id)
     {
-        return $this->patientRepository->find($id);
+        return $this->patientRepository
+                    ->lookupData()
+                    ->find($id);
     }
 
     public function findWhere(array $where, array $columns = ['*'])
@@ -34,7 +36,9 @@ class PatientService implements IPatientService
 
     public function insert(Request $request)
     {
-        return $this->patientRepository->create($request->validated());
+        return $this->patientRepository->create(
+            array_merge($request->validated(), ['user_id' => auth()->user()->id])
+        );
     }
 
     public function update(Request $request, int $id)
