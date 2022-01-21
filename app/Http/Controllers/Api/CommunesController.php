@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Contracts\Services\ICommuneService;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\JsonResponse;
+use App\Http\Resources\CommuneCollection;
+use App\Http\Resources\CommuneResource;
 
 class CommunesController extends Controller
 {
@@ -12,18 +13,18 @@ class CommunesController extends Controller
     {
     }
 
-    public function index(): JsonResponse
+    public function index()
     {
         $data = $this->communeService->all();
 
-        return response()->json($data);
+        return new CommuneCollection($data);
     }
 
 
-    public function show(int $id): JsonResponse
+    public function show(int $id)
     {
         $data = $this->communeService->find($id);
 
-        return response()->json($data);
+        return new CommuneResource($data);
     }
 }

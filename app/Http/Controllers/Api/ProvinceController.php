@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Contracts\Services\IProvinceService;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\JsonResponse;
+use App\Http\Resources\ProvinceCollection;
+use App\Http\Resources\ProvinceResource;
 
 class ProvinceController extends Controller
 {
@@ -12,17 +13,17 @@ class ProvinceController extends Controller
     {
     }
 
-    public function index(): JsonResponse
+    public function index(): ProvinceCollection
     {
         $data = $this->province->all();
 
-        return response()->json($data);
+        return new ProvinceCollection($data);
     }
 
-    public function show(int $id): JsonResponse
+    public function show(int $id): ProvinceResource
     {
         $data = $this->province->find($id);
 
-        return response()->json($data);
+        return new ProvinceResource($data);
     }
 }

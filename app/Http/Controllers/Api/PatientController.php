@@ -6,8 +6,8 @@ use App\Contracts\Services\IPatientService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use App\Http\Resources\PatientCollection;
+use App\Http\Resources\PatientResource;
 
 class PatientController extends Controller
 {
@@ -15,14 +15,11 @@ class PatientController extends Controller
     {
     }
 
-    public function index(): JsonResponse
+    public function index(): PatientCollection
     {
         $data = $this->patientService->paginate();
 
-        return response()->json([
-            'status' => true,
-            'data' => $data
-        ]);
+        return new PatientCollection($data);
     }
 
     public function store(CreatePatientRequest $request)
@@ -30,7 +27,7 @@ class PatientController extends Controller
         $patient = $this->patientService->insert($request);
 
         return response()->json([
-            'status' => true,
+            'error' => false,
             'data' => $patient
         ]);
     }
@@ -39,7 +36,14 @@ class PatientController extends Controller
     {
         $patient = $this->patientService->find($id);
 
-        return response()->json($patient);
+        if (! $patient) {
+            return response()->json([
+                'error' => true,
+                'data' => '404 Not Found',
+            ], 404);
+        }
+
+        return new PatientResource($patient);
     }
 
     public function update(UpdatePatientRequest $request, $id)
@@ -47,7 +51,7 @@ class PatientController extends Controller
         $patient = $this->patientService->update($request, $id);
 
         return response()->json([
-            'status' => true,
+            'error' => false,
             'data' => $patient,
         ]);
     }
@@ -57,7 +61,7 @@ class PatientController extends Controller
         $this->patientService->delete($id);
 
         return response()->json([
-            'status' => true,
+            'error' => false,
             'data' => __('Deleted'),
         ]);
     }
