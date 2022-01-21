@@ -18,6 +18,8 @@ class ProvinceService implements IProvinceService
 
     public function find(int $id)
     {
-        return $this->provinceRepository->find($id);
+        return $this->provinceRepository
+                ->with('districts')
+                ->find($id);
     }
 }
