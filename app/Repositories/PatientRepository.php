@@ -22,6 +22,6 @@ class PatientRepository extends BaseRepository implements IPatientRepository
 
     public function boot()
     {
-        $this->pushCriteria(app(RequestCriteria::class));
+//        $this->pushCriteria(app(RequestCriteria::class));
     }
 }

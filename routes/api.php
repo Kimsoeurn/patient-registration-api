@@ -23,8 +23,10 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
 Route::middleware(['auth:api'])->group(function () {
-    Route::resource('patients', PatientController::class);
+
 });
+
+Route::resource('patients', PatientController::class);
 
 Route::get('provinces', [ProvinceController::class, 'index']);
 Route::get('provinces/{id}', [ProvinceController::class, 'show']);
@@ -37,3 +39,4 @@ Route::get('communes/{id}', [CommunesController::class, 'show']);
 
 Route::get('villages', [VillagesController::class, 'index']);
 Route::get('villages/{id}', [VillagesController::class, 'show']);
+
