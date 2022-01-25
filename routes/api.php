@@ -30,12 +30,15 @@ Route::resource('patients', PatientController::class);
 
 Route::get('provinces', [ProvinceController::class, 'index']);
 Route::get('provinces/{id}', [ProvinceController::class, 'show']);
+Route::get('provinces/{id}/districts', [ProvinceController::class, 'districts']);
 
 Route::get('districts', [DistrictsController::class, 'index']);
 Route::get('districts/{id}', [DistrictsController::class, 'show']);
+Route::get('districts/{id}/communes', [DistrictsController::class, 'communes']);
 
 Route::get('communes', [CommunesController::class, 'index']);
 Route::get('communes/{id}', [CommunesController::class, 'show']);
+Route::get('communes/{id}/villages', [CommunesController::class, 'villages']);
 
 Route::get('villages', [VillagesController::class, 'index']);
 Route::get('villages/{id}', [VillagesController::class, 'show']);
