@@ -19,7 +19,9 @@ class PatientService implements IPatientService
 
     public function paginate()
     {
-        return $this->patientRepository->paginate();
+        return $this->patientRepository
+                ->lookupData()
+                ->paginate();
     }
 
     public function find(int $id)
