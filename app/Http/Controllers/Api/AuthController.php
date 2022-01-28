@@ -8,6 +8,8 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Http;
 
 class AuthController extends Controller
 {
@@ -35,8 +37,33 @@ class AuthController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Login Successfuly',
+            'message' => 'Login Successfully',
             'access_token' => $token,
         ]);
+    }
+
+    public function frontLogin()
+    {
+        $params = [
+            'grant_type'    => 'password',
+            'client_id'     => config('auth.client_id'),
+            'client_secret' => config('auth.client_secret'),
+            'username'      => request('username'),
+            'password'      => request('password'),
+            'scope'         => '*',
+        ];
+
+        $request = Request::create(config('app.url') . '/oauth/token', 'POST', $params);
+
+        return app()->handle($request);
+    }
+
+    public function logout()
+    {
+        auth()->user()->tokens()->each(function ($token, $key) {
+            $token->delete();
+        });
+
+        return response()->json('Logout successfully');
     }
 }
