@@ -58,7 +58,8 @@ php artisan serve
 ``
 
 ## Installation (Docker Laravel Sail)
-- Clone repository
+### Requirements
+- [Install Docker](https://www.docker.com/) (for Window need install WSL2)
 
 ``
 git clone git@github.com:Kimsoeurn/patient-registration-api.git
@@ -66,16 +67,38 @@ git clone git@github.com:Kimsoeurn/patient-registration-api.git
 - Build Docker Image
 
 ``
-cd project-dir && ./vender/bin sail up
+cd project-dir
+``
+- Copy .env.example to .env
+
+``
+docker run --rm \
+-u "$(id -u):$(id -g)" \
+-v $(pwd):/var/www/html \
+-w /var/www/html \
+laravelsail/php81-composer:latest \
+composer install --ignore-platform-reqs
 ``
 
-- Composer
+- Run Laravel Sail in Background
 
 ``
-./vender/bin sail composer install
+./vender/bin sail up -d
 ``
 
-- Node Package
+- Generate Application key
+
+``
+./vender/bin sail artisan key:generate
+``
+
+- Run Database migration and Seed
+
+``
+./vender/bin sail artisan migrate --seed
+``
+
+- Node Package (Optional)
 
 ``
 ./vender/bin sail npm install
@@ -85,28 +108,6 @@ cd project-dir && ./vender/bin sail up
 ./vender/bin sail npm run dev
 ``
 
-- Config Database and migrate. (Copy ``env.example and rename .env and config your database connection``)
-
-``
-./vender/bin artisan migrate --seed
-``
-- Seed Factory Data
-
-``
-./vender/bin artisan db:seed
-``
-
-- Generate Application key
-
-``
-./vender/bin artisan key:generate
-``
-
-- Run Laravel Sail in Background
-
-``
-./vender/bin sail up -d
-``
 ## RESTFul API
 ### User Login and Registration
     HTTP Verb: POST Data({name, email, passowrd})
