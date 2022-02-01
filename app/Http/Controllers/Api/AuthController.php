@@ -8,6 +8,8 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Http;
 
 class AuthController extends Controller
 {
@@ -19,7 +21,12 @@ class AuthController extends Controller
     {
         $user = $this->userService->insert($request);
 
-        return response()->json($user);
+        $token = $user->createToken('auth-token');
+
+        return response()->json([
+            'user' => $user,
+            'access_token' => $token->accessToken
+        ]);
     }
 
     public function login(LoginRequest $request): JsonResponse
@@ -35,8 +42,34 @@ class AuthController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Login Successfuly',
-            'access_token' => $token,
+            'message' => 'Login Successfully',
+            'access_token' => $token->accessToken,
+            'user' => auth()->user()
         ]);
+    }
+
+    public function frontLogin()
+    {
+        $params = [
+            'grant_type'    => 'password',
+            'client_id'     => config('auth.client_id'),
+            'client_secret' => config('auth.client_secret'),
+            'username'      => request('username'),
+            'password'      => request('password'),
+            'scope'         => '*',
+        ];
+
+        $request = Request::create(config('app.url') . '/oauth/token', 'POST', $params);
+
+        return app()->handle($request);
+    }
+
+    public function logout()
+    {
+        auth()->user()->tokens()->each(function ($token, $key) {
+            $token->delete();
+        });
+
+        return response()->json('Logout successfully');
     }
 }

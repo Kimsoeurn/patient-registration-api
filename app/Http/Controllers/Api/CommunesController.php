@@ -6,6 +6,7 @@ use App\Contracts\Services\ICommuneService;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CommuneCollection;
 use App\Http\Resources\CommuneResource;
+use App\Http\Resources\VillageCollection;
 
 class CommunesController extends Controller
 {
@@ -13,7 +14,7 @@ class CommunesController extends Controller
     {
     }
 
-    public function index()
+    public function index(): CommuneCollection
     {
         $data = $this->communeService->all();
 
@@ -21,10 +22,17 @@ class CommunesController extends Controller
     }
 
 
-    public function show(int $id)
+    public function show(int $id): CommuneResource
     {
         $data = $this->communeService->find($id);
 
         return new CommuneResource($data);
+    }
+
+    public function villages(int $communeId): VillageCollection
+    {
+        $data = $this->communeService->find($communeId)->villages;
+
+        return new VillageCollection($data);
     }
 }

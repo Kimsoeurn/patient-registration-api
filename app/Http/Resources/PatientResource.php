@@ -17,8 +17,8 @@ class PatientResource extends JsonResource
         return [
             'id' => $this->id,
             'health_id_card' => $this->health_id_card,
-            'name_khmer' => $this->name_kh,
-            'name_english' => $this->name_en,
+            'name_kh' => $this->name_kh,
+            'name_en' => $this->name_en,
             'date_of_birth' => $this->date_of_birth,
             'gender' => $this->gender,
             'nationality' => $this->nationality,
@@ -35,6 +35,8 @@ class PatientResource extends JsonResource
             'district_id' => $this->district_id,
             'commune_id' => $this->commune_id,
             'village_id' => $this->village_id,
+            'address' => "{$this->province} {$this->district} {$this->commune} {$this->village}",
+            'remark' => $this->remark
         ];
     }
 }

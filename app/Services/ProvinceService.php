@@ -13,7 +13,8 @@ class ProvinceService implements IProvinceService
 
     public function all()
     {
-        return $this->provinceRepository->all();
+        return $this->provinceRepository
+                ->all(['id', 'name_kh']);
     }
 
     public function find(int $id)

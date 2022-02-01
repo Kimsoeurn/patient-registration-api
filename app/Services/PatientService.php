@@ -19,7 +19,9 @@ class PatientService implements IPatientService
 
     public function paginate()
     {
-       return $this->patientRepository->paginate();
+        return $this->patientRepository
+                ->lookupData()
+                ->paginate();
     }
 
     public function find(int $id)
@@ -37,7 +39,7 @@ class PatientService implements IPatientService
     public function insert(Request $request)
     {
         return $this->patientRepository->create(
-            array_merge($request->validated(), ['user_id' => auth()->user()->id])
+            array_merge($request->validated(), ['user_id' => auth()->user()->id ?? null])
         );
     }
 
