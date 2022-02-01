@@ -26,6 +26,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('user', function () {
         return auth()->user();
     });
+    Route::post('logout', [AuthController::class, 'logout']);
 
     Route::apiResource('patients', PatientController::class);
 
