@@ -71,14 +71,13 @@ cd project-dir
 ``
 - Copy .env.example to .env
 
-``
-docker run --rm \
--u "$(id -u):$(id -g)" \
--v $(pwd):/var/www/html \
--w /var/www/html \
-laravelsail/php81-composer:latest \
-composer install --ignore-platform-reqs
-``
+### Run Docker Command
+    docker run --rm \
+        -u "$(id -u):$(id -g)" \
+        -v $(pwd):/var/www/html \
+        -w /var/www/html \
+        laravelsail/php81-composer:latest \
+        composer install --ignore-platform-reqs
 
 - Run Laravel Sail in Background
 
@@ -96,6 +95,11 @@ composer install --ignore-platform-reqs
 
 ``
 ./vender/bin sail artisan migrate --seed
+``
+- Run Passport Generate Password grant client (Copy Client ID and Client secrete to .env)
+
+``
+./vendor/bin/sail artisan passport:install
 ``
 
 - Node Package (Optional)
