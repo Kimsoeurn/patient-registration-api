@@ -32,7 +32,7 @@ class UpdatePatientRequest extends BaseRequest
             'district_id' => ['nullable'],
             'commune_id' => ['nullable'],
             'village_id' => ['nullable'],
-            'reamrk' => ['nullable'],
+            'remark' => ['nullable'],
         ];
     }
 }

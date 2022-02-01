@@ -21,7 +21,12 @@ class AuthController extends Controller
     {
         $user = $this->userService->insert($request);
 
-        return response()->json($user);
+        $token = $user->createToken('auth-token');
+
+        return response()->json([
+            'user' => $user,
+            'access_token' => $token->accessToken
+        ]);
     }
 
     public function login(LoginRequest $request): JsonResponse
@@ -38,7 +43,8 @@ class AuthController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Login Successfully',
-            'access_token' => $token,
+            'access_token' => $token->accessToken,
+            'user' => auth()->user()
         ]);
     }
 
