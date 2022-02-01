@@ -16,7 +16,7 @@ The current package requirements are:
 - PHP >= 8.0.x
 - MySQL >= 8.0.x
 
-## Installation
+## Installation (Local Development)
 - Clone repository
 
 ``
@@ -39,6 +39,11 @@ npm install && npm run dev
 ``
 php artisan migrate --seed
 ``
+- Seed Factory Data
+
+``
+php artisan db:seed
+``
 
 - Generate Application key
 
@@ -52,15 +57,139 @@ php artisan key:generate
 php artisan serve
 ``
 
-- Admin login
+## Installation (Docker Laravel Sail)
+- Clone repository
 
 ``
-Email: devgeek@gmail.com
+git clone git@github.com:Kimsoeurn/patient-registration-api.git
+``
+- Build Docker Image
+
+``
+cd project-dir && ./vender/bin sail up
+``
+
+- Composer
+
+``
+./vender/bin sail composer install
+``
+
+- Node Package
+
+``
+./vender/bin sail npm install
 ``
 
 ``
-Password: password
+./vender/bin sail npm run dev
 ``
+
+- Config Database and migrate. (Copy ``env.example and rename .env and config your database connection``)
+
+``
+./vender/bin artisan migrate --seed
+``
+- Seed Factory Data
+
+``
+./vender/bin artisan db:seed
+``
+
+- Generate Application key
+
+``
+./vender/bin artisan key:generate
+``
+
+- Run Laravel Sail in Background
+
+``
+./vender/bin sail up -d
+``
+## RESTFul API
+### User Login and Registration
+    HTTP Verb: POST Data({name, email, passowrd})
+    http://localhost/api/register
+
+    HTTP Verb: POST Data({usernname, passowrd})
+    http://localhost/api/login
+
+### CRUD Operations (Patients)
+    [List all patients]
+    HTTP Verb: GET
+    http://localhost/api/patients
+
+    [Show patient]
+    HTTP Verb: GET
+    http://localhost/api/patients/{id}
+
+    [Create Patient] data
+    {
+        health_id_card, 
+        name_kh, 
+        name_en, 
+        date_of_birth, 
+        gender, 
+        nationality, 
+        occupation, 
+        phone_number, 
+        mental_health_id_card, 
+        other_id_card:, 
+        is_disabled, 
+        province_id,
+        district_id,
+        commune_id, 
+        village_id,
+        remark
+    }
+    HTTP Verb: POST Data(data)
+    http://localhost/api/patients
+
+    [Update Patient] data
+    {
+        health_id_card, 
+        name_kh, 
+        name_en, 
+        date_of_birth, 
+        gender, 
+        nationality, 
+        occupation, 
+        phone_number, 
+        mental_health_id_card, 
+        other_id_card:, 
+        is_disabled, 
+        province_id,
+        district_id,
+        commune_id, 
+        village_id,
+        remark
+    }
+
+    HTTP Verb: PUT Data(id, data)
+    http://localhost/api/patients/{id}
+
+    [Delete Patient]
+    HTTP Verb: DELETE
+    http://localhost/api/patients/{id}
+
+### Provinces API
+    [All Provinces]
+    HTTP Verb: GET
+    http://localhost/api/provinces
+
+    [All Districts by province]
+    HTTP Verb: GET
+    http://localhost/api/provinces/{provinceId}/districts
+
+    [All Communes by district]
+    HTTP Verb: GET
+    http://localhost/api/districts/{districtId}/communes
+
+    [All Villages by commune]
+    HTTP Verb: GET
+    http://localhost/api/communes/{communeId}/villages
+    
 ## License
 
 The MIT License (MIT). Please see check for more information. [MIT license](https://opensource.org/licenses/MIT).
